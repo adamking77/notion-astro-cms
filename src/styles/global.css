@@ -36,7 +36,7 @@
   --color-base-700: oklch(45.48% 0.005 236.59);
   --color-base-800: oklch(35.98% 0.004 264.52);
   --color-base-900: oklch(26.38% 0.002 247.92);
-  --color-base-950: oklch(18.11% 0.002 197.01);
+  --color-base-950: #12161d;
   /* Keyframes */
   --animate-marquee: marquee 12s linear infinite;
   --animate-rightMarquee: rightMarquee 300s linear infinite;
@@ -105,6 +105,3 @@
   --astro-code-token-underline: underline;
 }
 
-h1, h2, h3, h4, h5, h6 {
-  font-weight: 400;
-}
