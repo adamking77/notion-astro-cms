@@ -1,0 +1,145 @@
+---
+// Assets
+import { Image } from "astro:assets";
+import Avatar from "@/images/avatar.jpeg";
+// Fundations
+import Text from "@/components/fundations/elements/Text.astro";
+import Link from "@/components/fundations/elements/Link.astro";
+import Button from "@/components/fundations/elements/Button.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+---
+
+<section>
+  <Wrapper variant="standard" class="py-24 lg:pt-48">
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-4">
+      <div>
+        <Text
+          tag="h1"
+          variant="displayMD"
+          data-aos="fade-up"
+          data-aos-duration="1500"
+          class="dark:text-white xl:text-4xl tracking-tight font-medium text-black text-balance"
+        >
+          Get in touch
+        </Text>
+        <Text
+          tag="p"
+          variant="textBase"
+          data-aos="fade-up"
+          data-aos-duration="1200"
+          class="mt-2 text-base-700 dark:text-base-300"
+        >
+          Feel free to reach out if you want to chat about design, discuss a
+          potential project, or explore new opportunities.
+        </Text>
+        <div class="flex flex-col gap-8 mt-12">
+          <form>
+            <div class="grid grid-cols-1 gap-2 sm:grid-cols-2">
+              <div>
+                <label for="first-name" class="sr-only">First name</label>
+                <div>
+                  <input
+                    type="text"
+                    name="first-name"
+                    id="first-name"
+                    placeholder="Your name"
+                    autocomplete="given-name"
+                    class="w-full flex-auto appearance-none rounded-md dark:text-white text-base-900 outline-inset border-transparent px-3 py-2 shadow-base-800/5 dark:placeholder:text-base-400 dark:place-holder-text-base-700 duration-300 h-9 focus:border-base-500 focus:outline-none focus:outline-4 focus:outline-base-500/10 sm:text-sm bg-base-50 dark:bg-base-800"
+                  />
+                </div>
+              </div>
+              <div>
+                <label for="last-name" class="sr-only">Last name</label>
+                <div>
+                  <input
+                    type="text"
+                    name="last-name"
+                    placeholder="Your last name"
+                    id="last-name"
+                    autocomplete="family-name"
+                    class="w-full flex-auto appearance-none rounded-md dark:text-white text-base-900 outline-inset border-transparent px-3 py-2 shadow-base-800/5 dark:placeholder:text-base-400 dark:place-holder-text-base-700 duration-300 h-9 focus:border-base-500 focus:outline-none focus:outline-4 focus:outline-base-500/10 sm:text-sm bg-base-50 dark:bg-base-800"
+                  />
+                </div>
+              </div>
+              <div class="sm:col-span-2">
+                <label for="company" class="sr-only">Company</label>
+                <div>
+                  <input
+                    type="text"
+                    name="company"
+                    id="company"
+                    placeholder="Company name"
+                    autocomplete="organization"
+                    class="w-full flex-auto appearance-none rounded-md dark:text-white text-base-900 outline-inset border-transparent px-3 py-2 shadow-base-800/5 dark:placeholder:text-base-400 dark:place-holder-text-base-700 duration-300 h-9 focus:border-base-500 focus:outline-none focus:outline-4 focus:outline-base-500/10 sm:text-sm bg-base-50 dark:bg-base-800"
+                  />
+                </div>
+              </div>
+              <div class="sm:col-span-2">
+                <label for="email" class="sr-only">Email</label>
+                <div>
+                  <input
+                    type="email"
+                    name="email"
+                    placeholder="Your best email!"
+                    id="email"
+                    autocomplete="email"
+                    class="w-full flex-auto appearance-none rounded-md dark:text-white text-base-900 outline-inset border-transparent px-3 py-2 shadow-base-800/5 dark:placeholder:text-base-400 dark:place-holder-text-base-700 duration-300 h-9 focus:border-base-500 focus:outline-none focus:outline-4 focus:outline-base-500/10 sm:text-sm bg-base-50 dark:bg-base-800"
+                  />
+                </div>
+              </div>
+              <div class="sm:col-span-2">
+                <label for="message" class="sr-only">Message</label>
+                <div>
+                  <textarea
+                    name="message"
+                    id="message"
+                    placeholder="Your message goes here..."
+                    rows="4"
+                    class="w-full flex-auto appearance-none rounded-md dark:text-white text-base-900 outline-inset border-transparent px-3 py-2 shadow-base-800/5 dark:placeholder:text-base-400 dark:place-holder-text-base-700 duration-300 focus:border-base-500 focus:outline-none focus:outline-4 focus:outline-base-500/10 sm:text-sm bg-base-50 dark:bg-base-800"
+                  ></textarea>
+                </div>
+              </div>
+            </div>
+            <div class="mt-2">
+              <Button
+                size="sm"
+                variant="default"
+                type="submit"
+                class="w-full resize"
+              >
+                Submit
+              </Button>
+            </div>
+          </form>
+          <div class="mt-4">
+            <Text
+              tag="h3"
+              variant="textXL"
+              class="dark:text-white text-base-900 tracking-tight font-medium"
+            >
+              Book a call
+            </Text>
+            <Text
+              tag="p"
+              variant="textSM"
+              class="text-base-500 mt-2 dark:text-base-300 lg:text-balance"
+            >
+              Book a call with us to discuss your project and get a better idea
+              of what we can do for you.
+            </Text>
+            <div class="mt-8 flex">
+              <Link size="xs" variant="muted" href="#_"> Schedule a call </Link>
+            </div>
+          </div>
+        </div>
+      </div>
+      <Image
+        width={1000}
+        height={2000}
+        src={Avatar}
+        alt="#_"
+        class="w-full size-full mt-4 object-cover object-center lg:col-span-3 lg:order-first"
+      />
+    </div>
+  </Wrapper>
+</section>

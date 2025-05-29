@@ -1,0 +1,165 @@
+---
+// Fundations
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+// Sections
+import Hero from "@/components/landing/Hero.astro";
+import Services from "@/components/landing/Services.astro";
+import Philosphy from "@/components/landing/Philosphy.astro";
+import HowWeWork from "@/components/landing/HowWeWork.astro";
+
+// Components
+import LogoCloud from "@/components/assets/LogoCloud.astro";
+import WorkEntries1 from "@/components/work/WorkEntries1.astro";
+import BlogEntries1 from "@/components/blog/BlogEntries1.astro";
+// Content
+import { getCollection } from "astro:content";
+const allWork = await getCollection("work");
+// Fetch and map Notion posts
+const notionPostsRaw = await getCollection("database");
+
+let allPosts = notionPostsRaw.map(post => {
+  const properties = post.data.properties || {};
+  const title = properties.Name?.title[0]?.plain_text || 'Untitled';
+  
+  const dateProperty = properties.Date;
+  const createdTime = dateProperty?.date?.start;
+  const pubDate = createdTime || new Date(0).toISOString();
+
+  const descriptionProperty = properties.Description;
+  const description = descriptionProperty?.rich_text?.[0]?.plain_text || "";
+
+  const authorProperty = properties.Author;
+  const author = authorProperty?.people?.[0]?.name || "Unknown Author";
+  
+  let image = "/icon.svg"; // Default image
+  const imageProperty = properties["Featured Image URL"]; // Use properties directly
+
+  if (imageProperty) {
+    if (imageProperty.type === 'files' && imageProperty.files && imageProperty.files.length > 0) {
+      const fileObject = imageProperty.files[0];
+      if (fileObject.type === 'file' && fileObject.file?.url) {
+        image = fileObject.file.url;
+      } else if (fileObject.type === 'external' && fileObject.external?.url) {
+        image = fileObject.external.url;
+      }
+    } else if (imageProperty.type === 'url' && imageProperty.url) { // Handle Notion URL type property
+      image = imageProperty.url;
+    }
+  }
+
+  // Final safety net to ensure 'image' is always a valid string.
+  if (typeof image !== 'string' || image.trim() === '') {
+    image = "/icon.svg";
+  }
+
+  const tagsProperty = properties.Tags;
+  const tags = tagsProperty?.multi_select?.map(tag => tag.name) || [];
+
+  return {
+    ...post,
+    slug: post.id,
+    data: {
+      title: title,
+      pubDate: pubDate,
+      description: description,
+      author: author,
+      image: image,
+      tags: tags,
+    },
+    sortDate: new Date(pubDate),
+    type: 'notion'
+  };
+}).sort((a, b) => {
+  const dateA = (a.sortDate instanceof Date) ? a.sortDate.getTime() : 0;
+  const dateB = (b.sortDate instanceof Date) ? b.sortDate.getTime() : 0;
+  return dateB - dateA;
+});
+---
+
+<BaseLayout>
+  <Hero />
+  <LogoCloud />
+  <Services />
+  <section>
+    <Wrapper variant="standard" class="pb-12">
+      <div class="grid grid-cols-1 lg:grid-cols-4 gap-4">
+        <div class="flex flex-col">
+          <Text
+            tag="h2"
+            variant="displayXL"
+            data-aos="fade-up"
+            data-aos-duration="1000"
+            class="dark:text-white text-base-900 font-medium tracking-tighter"
+          >
+            featured
+            <br />
+            work
+          </Text>
+          <Text
+            tag="a"
+            variant="textXS"
+            data-aos="fade-up"
+            data-aos-duration="1500"
+            href="/work/home"
+            class="uppercase text-black dark:text-white hover:text-base-500"
+          >
+            view all
+          </Text>
+        </div>
+        <div
+          class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-y-12 gap-2 lg:col-span-3"
+        >
+          {
+            allWork
+              .slice(0, 3)
+              .map((post, index) => (
+                <WorkEntries1 post={post} index={index + 1} />
+              ))
+          }
+        </div>
+      </div>
+    </Wrapper>
+  </section>
+  <Philosphy />
+  <HowWeWork />
+  <section>
+    <Wrapper variant="standard" class="py-24">
+      <div class="grid grid-cols-1 lg:grid-cols-4 gap-4">
+        <div class="flex flex-col">
+          <Text
+            tag="h3"
+            variant="displayXL"
+            data-aos="fade-up"
+            data-aos-duration="1000"
+            class="dark:text-white text-base-900 font-medium tracking-tighter"
+          >
+            insights
+          </Text>
+          <Text
+            tag="a"
+            variant="textXS"
+            data-aos="fade-up"
+            data-aos-duration="1500"
+            href="/blog/home"
+            class="uppercase text-black dark:text-white hover:text-base-500"
+          >
+            view all
+          </Text>
+        </div>
+        <div
+          class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-y-12 gap-2 lg:col-span-3"
+        >
+          {
+            allPosts
+              .slice(0, 3)
+              .map((post, index) => (
+                <BlogEntries1 post={post} index={index + 1} />
+              ))
+          }
+        </div>
+      </div>
+    </Wrapper>
+  </section>
+</BaseLayout>

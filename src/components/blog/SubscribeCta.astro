@@ -1,0 +1,58 @@
+---
+// Fundations
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+import Button from "@/components/fundations/elements/Button.astro";
+---
+
+<section>
+  <Wrapper variant="standard" class="py-24">
+    <div class="flex flex-col gap-4">
+      <Text
+        tag="h3"
+        variant="displayMD"
+        class="dark:text-white xl:text-6xl tracking-tight font-medium text-black text-balance lg:col-span-3"
+      >
+        Subscribe to my newsletter to get the latest updates and tips on how my
+        latest project or products.
+      </Text>
+      <Text
+        tag="p"
+        variant="textSM"
+        class="text-black dark:text-white font-medium l"
+      >
+        Crafting timeless design through clarity, precision, and collaboration.
+      </Text>
+
+      <div>
+        <form class="mt-4 flex gap-2 flex-col xl:flex-row xl:items-center">
+          <!-- Email Field -->
+          <div>
+            <label for="email" class="sr-only">Email</label>
+            <input
+              type="email"
+              name="email"
+              id="email"
+              autocomplete="email"
+              placeholder="Enter your email"
+              class="w-full flex-auto appearance-none rounded-md dark:text-white text-base-900 outline-inset border-transparent px-3 py-2 shadow-base-800/5 dark:placeholder:text-base-400 dark:place-holder-text-base-700 duration-300 h-9 focus:border-base-500 focus:outline-none focus:outline-4 focus:outline-base-500/10 sm:text-sm bg-base-50 dark:bg-base-800"
+            />
+          </div>
+          <!-- Submit Button -->
+          <div>
+            <Button size="sm" variant="default" type="submit" class="w-full">
+              Subscribe
+            </Button>
+          </div>
+        </form>
+        <Text
+          tag="p"
+          variant="textXS"
+          class="mt-1 text-base-700 dark:text-base-300"
+        >
+          We won't spam you on weekdays, only on weekends.
+        </Text>
+      </div>
+    </div>
+  </Wrapper>
+</section>

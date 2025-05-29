@@ -1,0 +1,70 @@
+---
+// Fundations
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Link from "@/components/fundations/elements/Link.astro";
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+---
+
+<BaseLayout>
+  <section>
+    <Wrapper variant="standard" class="py-24">
+      <Text tag="h1" variant="displaySM" class="dark:text-white text-base-900">
+        Links
+      </Text>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-2">
+        <div class="py-4">
+          <Text
+            tag="p"
+            variant="textXS"
+            class="text-base-900 dark:text-white uppercase font-medium"
+          >
+            Default
+          </Text>
+          <div class="mt-4 flex flex-col gap-4">
+            <Link href="#_" size="xs" variant="default">Default XS</Link>
+            <Link href="#_" size="sm" variant="default">Default SM</Link>
+            <Link href="#_" size="base" variant="default">Default Base</Link>
+            <Link href="#_" size="md" variant="default">Default MD</Link>
+            <Link href="#_" size="lg" variant="default">Default LG</Link>
+            <Link href="#_" size="xl" variant="default">Default XL</Link>
+          </div>
+        </div>
+        <div class="py-4">
+          <Text
+            tag="p"
+            variant="textXS"
+            class="text-base-900 dark:text-white uppercase font-medium"
+          >
+            Accent
+          </Text>
+          <div class="mt-4 flex flex-col gap-4">
+            <Link href="#_" size="xs" variant="accent">Accent XS</Link>
+            <Link href="#_" size="sm" variant="accent">Accent SM</Link>
+            <Link href="#_" size="base" variant="accent">Accent Base</Link>
+            <Link href="#_" size="md" variant="accent">Accent MD</Link>
+            <Link href="#_" size="lg" variant="accent">Accent LG</Link>
+            <Link href="#_" size="xl" variant="accent">Accent XL</Link>
+          </div>
+        </div>
+        <div class="py-4">
+          <Text
+            tag="p"
+            variant="textXS"
+            class="text-base-900 dark:text-white uppercase font-medium"
+          >
+            Muted
+          </Text>
+          <div class="mt-4 flex flex-col gap-4">
+            <Link href="#_" size="xs" variant="muted">Muted XS</Link>
+            <Link href="#_" size="sm" variant="muted">Muted SM</Link>
+            <Link href="#_" size="base" variant="muted">Muted Base</Link>
+            <Link href="#_" size="md" variant="muted">Muted MD</Link>
+            <Link href="#_" size="lg" variant="muted">Muted LG</Link>
+            <Link href="#_" size="xl" variant="muted">Muted XL</Link>
+          </div>
+        </div>
+      </div>
+    </Wrapper>
+  </section>
+</BaseLayout>

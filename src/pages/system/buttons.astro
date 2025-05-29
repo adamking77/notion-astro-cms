@@ -1,0 +1,71 @@
+---
+// Fundations
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Button from "@/components/fundations/elements/Button.astro";
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+---
+
+<BaseLayout>
+  <section>
+    <Wrapper variant="standard" class="py-24">
+      <Text tag="h1" variant="displaySM" class="dark:text-white text-base-900">
+        Buttons
+      </Text>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-2">
+        <div class="py-4">
+          <Text
+            tag="p"
+            variant="textXS"
+            class="text-base-900 dark:text-white uppercase font-medium"
+          >
+            Default
+          </Text>
+          <div class="mt-4 flex flex-col gap-4">
+            <Button href="#_" size="xs" variant="default">Default XS</Button>
+            <Button href="#_" size="sm" variant="default">Default SM</Button>
+            <Button href="#_" size="base" variant="default">Default Base</Button
+            >
+            <Button href="#_" size="md" variant="default">Default MD</Button>
+            <Button href="#_" size="lg" variant="default">Default LG</Button>
+            <Button href="#_" size="xl" variant="default">Default XL</Button>
+          </div>
+        </div>
+        <div class="py-4">
+          <Text
+            tag="p"
+            variant="textXS"
+            class="text-base-900 dark:text-white uppercase font-medium"
+          >
+            Accent
+          </Text>
+          <div class="mt-4 flex flex-col gap-4">
+            <Button href="#_" size="xs" variant="accent">Accent XS</Button>
+            <Button href="#_" size="sm" variant="accent">Accent SM</Button>
+            <Button href="#_" size="base" variant="accent">Accent Base</Button>
+            <Button href="#_" size="md" variant="accent">Accent MD</Button>
+            <Button href="#_" size="lg" variant="accent">Accent LG</Button>
+            <Button href="#_" size="xl" variant="accent">Accent XL</Button>
+          </div>
+        </div>
+        <div class="py-4">
+          <Text
+            tag="p"
+            variant="textXS"
+            class="text-base-900 dark:text-white uppercase font-medium"
+          >
+            Muted
+          </Text>
+          <div class="mt-4 flex flex-col gap-4">
+            <Button href="#_" size="xs" variant="muted">Muted XS</Button>
+            <Button href="#_" size="sm" variant="muted">Muted SM</Button>
+            <Button href="#_" size="base" variant="muted">Muted Base</Button>
+            <Button href="#_" size="md" variant="muted">Muted MD</Button>
+            <Button href="#_" size="lg" variant="muted">Muted LG</Button>
+            <Button href="#_" size="xl" variant="muted">Muted XL</Button>
+          </div>
+        </div>
+      </div>
+    </Wrapper>
+  </section>
+</BaseLayout>

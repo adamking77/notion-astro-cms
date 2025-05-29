@@ -1,0 +1,84 @@
+---
+// Fundations
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+// Components
+import BlogSearch from "@/components/blog/BlogSearch.astro";
+
+import BlogEntries1 from "@/components/blog/BlogEntries1.astro";
+import BlogEntries4 from "@/components/blog/BlogEntries4.astro";
+import SubscribeCta from "@/components/blog/SubscribeCta.astro";
+// Content
+import { getCollection } from "astro:content";
+// Sort posts by date
+const allPosts = await getCollection("posts");
+allPosts.sort((a, b) => {
+  const dateA = new Date(a.data.pubDate).getTime(); // Convert to timestamp
+  const dateB = new Date(b.data.pubDate).getTime(); // Convert to timestamp
+  return dateB - dateA; // Compare timestamps
+});
+---
+
+<BaseLayout>
+  <section>
+    <Wrapper variant="standard" class="py-24 lg:pt-48">
+      <div class="flex items-center justify-between gap-2">
+        <Text
+          tag="h1"
+          variant="displayXL"
+          data-aos="fade-up"
+          data-aos-duration="1000"
+          class="dark:text-white text-base-900 font-medium tracking-tighter"
+        >
+          insights
+        </Text>
+        <div class="mt-4"><BlogSearch /></div>
+      </div>
+      <div
+        class="flex flex-col divide-y divide-base-200 dark:divide-base-800 border-y border-base-200 dark:border-base-800 mt-4"
+      >
+        {allPosts.map((post) => <BlogEntries4 post={post} />)}
+      </div>
+    </Wrapper>
+  </section>
+  <SubscribeCta />
+  <section>
+    <Wrapper variant="standard" class="py-24">
+      <div class="grid grid-cols-1 lg:grid-cols-4 gap-4">
+        <div class="flex flex-col">
+          <Text
+            tag="h3"
+            variant="displayXL"
+            data-aos="fade-up"
+            data-aos-duration="1000"
+            class="dark:text-white text-base-900 font-medium tracking-tighter"
+          >
+            Latest insights
+          </Text>
+          <Text
+            tag="a"
+            variant="textXS"
+            data-aos="fade-up"
+            data-aos-duration="1500"
+            href="/blog/home"
+            class="uppercase text-black dark:text-white hover:text-base-500"
+          >
+            view all
+          </Text>
+        </div>
+        <div
+          class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-y-12 gap-2 lg:col-span-3"
+        >
+          {
+            allPosts
+              .slice(0, 3)
+              .map((post, index) => (
+                <BlogEntries1 post={post} index={index + 1} />
+              ))
+          }
+        </div>
+      </div>
+    </Wrapper>
+  </section>
+</BaseLayout>

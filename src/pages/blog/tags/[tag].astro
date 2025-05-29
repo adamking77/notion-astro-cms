@@ -1,0 +1,48 @@
+---
+// Fundations
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+// Components
+import BlogEntries2 from "@/components/blog/BlogEntries2.astro";
+// Content
+import { getCollection } from "astro:content";
+export async function getStaticPaths() {
+  const allPosts = await getCollection("posts");
+  const uniqueTags = [
+    ...new Set(allPosts.map((post) => post.data.tags).flat()),
+  ];
+  return uniqueTags.map((tag) => {
+    const filteredPosts = allPosts.filter((post) =>
+      post.data.tags.includes(tag)
+    );
+    return {
+      params: { tag },
+      props: { posts: filteredPosts },
+    };
+  });
+}
+const { tag } = Astro.params;
+const { posts } = Astro.props;
+---
+
+<BaseLayout pageTitle={tag}>
+  <section>
+    <Wrapper variant="standard" class="py-24 lg:pt-48">
+      <div class="overflow-hidden">
+        <Text
+          tag="h1"
+          variant="displayMD"
+          data-aos="fade-down"
+          data-aos-duration="1500"
+          class="dark:text-white xl:text-6xl tracking-tight font-medium text-black text-balance"
+        >
+          {tag}
+        </Text>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-5 gap-y-12 lg:gap-1 mt-4">
+        {posts.map((post, index) => <BlogEntries2 post={post} index={index} />)}
+      </div>
+    </Wrapper>
+  </section>
+</BaseLayout>

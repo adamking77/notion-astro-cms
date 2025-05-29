@@ -1,0 +1,43 @@
+<!-- Scroll to Top Button -->
+<div class="fixed z-50 bottom-6 right-6">
+  <!-- The button that triggers smooth scroll to the top -->
+  <button
+    onclick="window.scrollTo({ top: 0, behavior: 'smooth' })"
+    class="flex items-center justify-center font-semibold text-base-900 duration-300 rounded-xl shadow-lg size-12 bg-base-50 hover:bg-base-200 dark:bg-base-800 dark:hover:bg-base-900 dark:text-white dark:ring-base-800 ring-1 ring-inset ring-base-200 opacity-0 transition-opacity"
+    id="scroll-to-top-btn"
+  >
+    <!-- The SVG icon for the scroll-to-top button -->
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      class="icon icon-tabler icons-tabler-outline icon-tabler-arrow-narrow-up size-6"
+    >
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+      <path d="M12 5l0 14"></path>
+      <path d="M16 9l-4 -4"></path>
+      <path d="M8 9l4 -4"></path>
+    </svg>
+  </button>
+</div>
+
+<script>
+  // Get the scroll-to-top button element
+  const scrollToTopBtn = document.getElementById("scroll-to-top-btn");
+
+  // Add an event listener for the scroll event
+  window.addEventListener("scroll", () => {
+    // If the page is scrolled more than 100px, make the button visible
+    if (window.scrollY > 100) {
+      scrollToTopBtn.classList.remove("opacity-0"); // Remove hidden state
+      scrollToTopBtn.classList.add("opacity-100"); // Make it fully visible
+    } else {
+      scrollToTopBtn.classList.remove("opacity-100"); // Remove visible state
+      scrollToTopBtn.classList.add("opacity-0"); // Make it hidden again
+    }
+  });
+</script>

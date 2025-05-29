@@ -1,0 +1,244 @@
+---
+// Assets
+import { Image } from "astro:assets";
+// Fundations
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+// Content
+const { frontmatter } = Astro.props;
+// This layout is not using the <slot/> feature, it's getting content from the markdown file frontmatter.
+// The <slot/> feature is used to allow for dynamic content to be inserted into the layout by writing the content in the markdown file outsite the frontmatter.
+//
+// You can add the <slot/> where you want the content to be inserted by using the following syntax:
+// <slot/> and use the Wrapper component with variant="prose" to style the content, the styles are already defined in the Wrapper component.
+---
+
+<BaseLayout>
+  <section>
+    <Wrapper variant="standard" class="py-24 lg:py-48">
+      <Text
+        tag="h1"
+        variant="display6XL"
+        data-aos="fade-up"
+        data-aos-duration="1000"
+        class="dark:text-white text-base-900 font-medium tracking-tighter lowercase"
+      >
+        {frontmatter.title}®
+      </Text>
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-start mt-12">
+        <Text
+          href="/work/home"
+          tag="a"
+          variant="displayXL"
+          data-aos="fade-up"
+          data-aos-duration="1500"
+          class="dark:text-white text-base-900 font-medium tracking-tighter flex items-center gap-2 w-full justify-between"
+        >
+          visit <span
+            ><svg
+              class="size-8 lg:size-14"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="currentColor"
+              viewBox="0 0 256 256"
+              ><path
+                d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"
+              ></path></svg
+            ></span
+          >
+        </Text>
+        <div class="relative overflow-hidden lg:col-span-3">
+          <Image
+            width={1000}
+            height={100}
+            src={frontmatter.thumbnail.url}
+            alt={frontmatter.thumbnail.alt}
+            data-aos="fade-up"
+            data-aos-duration="2000"
+            class="w-full aspect-[8/4] object-cover object-center"
+          />
+        </div>
+      </div>
+    </Wrapper>
+    <Wrapper variant="standard" class="py-8">
+      <div class="grid grid-cols-1 lg:grid-cols-4 gap-2">
+        <Text
+          tag="h4"
+          variant="displayXL"
+          data-aos="fade-up"
+          data-aos-duration="1000"
+          class="dark:text-white text-base-900 font-medium tracking-tighter"
+        >
+          intro
+        </Text>
+        <Wrapper variant="prose" class="-mt-8 lg:col-span-3">
+          {
+            frontmatter.intro &&
+              frontmatter.intro.map((item) => (
+                <div>
+                  {item.paragraphs &&
+                    item.paragraphs.map((paragraph) => (
+                      <Text
+                        tag="p"
+                        variant="displayMD"
+                        class="dark:text-white  tracking-tight font-medium text-black"
+                      >
+                        {paragraph}
+                      </Text>
+                    ))}
+                </div>
+              ))
+          }
+        </Wrapper>
+      </div>
+      <div>
+        {
+          frontmatter.projectData.map((credit) => (
+            <div class="flex flex-col   divide-y divide-base-200 dark:divide-base-800 border-t border-base-200 dark:border-base-800">
+              {Object.keys(credit).map((key) => (
+                <div class="grid grid-cols-1 lg:grid-cols-4 items-baseline gap-2 py-4">
+                  <Text
+                    tag="h4"
+                    variant="displayXL"
+                    data-aos="fade-up"
+                    data-aos-duration="1000"
+                    class="dark:text-white text-base-900 font-medium tracking-tighter"
+                  >
+                    {key}
+                  </Text>
+                  <Text
+                    tag="p"
+                    variant="textXL"
+                    class="text-base-500  dark:text-base-400  lg:col-span-3"
+                  >
+                    {credit[key]}
+                  </Text>
+                </div>
+              ))}
+            </div>
+          ))
+        }
+      </div>
+      <div
+        class="py-4 border-y border-base-200 dark:border-base-800 grid grid-cols-1 lg:grid-cols-4 gap-2"
+      >
+        <Text
+          tag="h4"
+          variant="displayXL"
+          data-aos="fade-up"
+          data-aos-duration="1000"
+          class="dark:text-white text-base-900 font-medium tracking-tighter"
+        >
+          insights
+        </Text>
+        <div class="lg:col-span-3">
+          {
+            frontmatter.highlights &&
+              frontmatter.highlights.map((item) => (
+                <div>
+                  <Text
+                    tag="h2"
+                    variant="displayMD"
+                    class="dark:text-white  tracking-tight font-medium text-black"
+                  >
+                    {item.title}
+                  </Text>
+                  <div class="mt-2">
+                    {item.paragraphs &&
+                      item.paragraphs.map((paragraph) => (
+                        <Text
+                          tag="p"
+                          variant="textBase"
+                          class="text-base-500  dark:text-base-400 "
+                        >
+                          {paragraph}
+                        </Text>
+                      ))}
+                  </div>
+                </div>
+              ))
+          }
+        </div>
+      </div>
+      <div
+        class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-y-12 gap-2 mt-2"
+      >
+        {
+          frontmatter.images.map((image, index) => (
+            <Image
+              src={image.url}
+              alt={image.alt}
+              width={1000}
+              height={1000}
+              class="size-full object-cover object-center "
+            />
+          ))
+        }
+      </div>
+      <div class="mt-8">
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-2 items-baseline">
+          <Text
+            tag="h4"
+            variant="displayXL"
+            data-aos="fade-up"
+            data-aos-duration="1000"
+            class="dark:text-white text-base-900 font-medium tracking-tighter"
+          >
+            Outro
+          </Text>
+          <div class="lg:col-span-3">
+            {
+              frontmatter.outro &&
+                frontmatter.outro.map((item) => (
+                  <div>
+                    {item.paragraphs &&
+                      item.paragraphs.map((paragraph) => (
+                        <Text
+                          tag="p"
+                          variant="displayMD"
+                          class="dark:text-white  tracking-tight font-medium text-black"
+                        >
+                          {paragraph}
+                        </Text>
+                      ))}
+                  </div>
+                ))
+            }
+          </div>
+        </div>
+        <div class="mt-12 grid grid-cols-1 lg:grid-cols-4 gap-2">
+          <Text
+            tag="h4"
+            variant="displayXL"
+            data-aos="fade-up"
+            data-aos-duration="1000"
+            class="dark:text-white text-base-900 font-medium tracking-tighter"
+            >Credits</Text
+          >
+          <div class="flex flex-col w-full gap-8 lg:col-span-3">
+            {
+              frontmatter.credits.map((credit) => (
+                <div class=" grid grid-cols-1 sm:grid-cols-2 items-end gap-2">
+                  <Text
+                    tag="p"
+                    variant="displaySM"
+                    class="dark:text-white text-base-900 font-medium tracking-tighter"
+                  >
+                    {credit.name}
+                  </Text>
+                  <Text
+                    tag="p"
+                    variant="textXL"
+                    class="text-base-500  dark:text-base-400 text-balance"
+                  >
+                    {credit.role}
+                  </Text>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+      </div>
+    </Wrapper>
+  </section>
+</BaseLayout>

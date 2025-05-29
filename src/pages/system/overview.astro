@@ -1,0 +1,154 @@
+---
+// Fundations
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+// Data array
+const pageData = [
+  {
+    sectionTitle: "All pages",
+    categories: [
+      {
+        title: "Static",
+        links: [
+          { url: "/", name: "Home" },
+          { url: "/about", name: "About" },
+          { url: "/studio", name: "Studio" },
+          { url: "/404", name: "Error 404" },
+        ],
+      },
+      {
+        title: "Forms",
+        links: [
+          { url: "/forms/signin", name: "Sign in" },
+          { url: "/forms/signup", name: "Sign up" },
+          { url: "/forms/contact", name: "Contact" },
+        ],
+      },
+      {
+        title: "System Pages",
+        links: [
+          { name: "Colors", url: "/system/colors" },
+          { name: "Links", url: "/system/links" },
+          { name: "Buttons", url: "/system/buttons" },
+          { name: "Typography", url: "/system/typography" },
+          {
+            name: "License",
+            url: "https://lexingtonthemes.com/legal/license/",
+          },
+          {
+            name: "Documentation",
+            url: "https://lexingtonthemes.com/documentation",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    sectionTitle: "Content collections",
+    categories: [
+      {
+        title: "Blog Pages",
+        links: [
+          { url: "/blog/home", name: "Home" },
+          { url: "/blog/home-2", name: "Home 2" },
+          { url: "/blog/home-3", name: "Home 3" },
+          { url: "/blog/posts/1", name: "Post" },
+          { url: "/blog/tags", name: "Tag index" },
+          { url: "/blog/tags/patterns", name: "Tag category" },
+          { url: "/rss.xml", name: "RSS" },
+        ],
+      },
+      {
+        title: "Work",
+        links: [
+          { url: "/work/home", name: "Home" },
+          { url: "/work/home-2", name: "Home 2" },
+          { url: "/work/home-3", name: "Home 3" },
+          { url: "/work/1", name: "Details" },
+        ],
+      },
+      {
+        title: "Store",
+        links: [
+          { url: "/store/home", name: "Store" },
+          { url: "/store/home-2", name: "Store 2" },
+          { url: "/store/home-3", name: "Store 3" },
+          { url: "/store/1", name: "Product Page" },
+        ],
+      },
+    ],
+  },
+];
+---
+
+<BaseLayout>
+  <section>
+    <Wrapper variant="standard" class="py-24">
+      <div class="overflow-hidden">
+        <Text
+          tag="h1"
+          variant="displayMD"
+          data-aos="fade-up"
+          data-aos-duration="1500"
+          class="dark:text-white xl:text-6xl tracking-tight font-medium text-black text-balance"
+        >
+          Overview
+        </Text>
+      </div>
+      <Text
+        tag="p"
+        variant="textBase"
+        class="mt-2 text-base-700 dark:text-base-300 lg:text-balance"
+      >
+        Explore all pagges
+      </Text>
+      <div
+        class="flex flex-col mt-12 divide-y divide-base-200 dark:divide-base-800 border-t border-base-200 dark:border-base-800"
+      >
+        {
+          pageData.map((section) => (
+            <div class="grid grid-cols-1 lg:grid-cols-4 gap-4 py-8">
+              <Text
+                tag="h3"
+                variant="displayMD"
+                data-aos="fade-up"
+                data-aos-duration="1000"
+                class="dark:text-white text-base-900 font-medium tracking-tighter lowercase"
+              >
+                {section.sectionTitle}
+              </Text>
+              <div class="relative grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-y-12 gap-2 lg:col-span-3    ">
+                {section.categories.map((category) => (
+                  <div class="flex flex-col ">
+                    <Text
+                      tag="h3"
+                      variant="textXL"
+                      class=" dark:text-white fotn-medium text-base-900 tracking-tight lowercase"
+                    >
+                      {category.title}
+                    </Text>
+                    <div class="flex flex-col gap-1 mt-2">
+                      {category.links.map((link) => (
+                        <Text
+                          tag="a"
+                          variant="textSM"
+                          class="dark:text-base-400 text-base-700"
+                          href={link.url}
+                          title={link.name}
+                          aria-label={link.name}
+                        >
+                          {link.name}
+                        </Text>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </Wrapper>
+  </section>
+</BaseLayout>

@@ -1,0 +1,120 @@
+---
+// Fundations
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+// Components
+import BlogSearch from "@/components/blog/BlogSearch.astro";
+import BlogEntries1 from "@/components/blog/BlogEntries1.astro";
+import BlogEntries2 from "@/components/blog/BlogEntries2.astro";
+import SubscribeCta from "@/components/blog/SubscribeCta.astro";
+
+// Content
+import { getCollection } from "astro:content";
+// Fetch only Notion posts
+const notionPostsRaw = await getCollection("database");
+
+// Optional: Log raw Notion post structure for debugging if needed
+// notionPostsRaw.forEach(post => console.log(JSON.stringify(post.data.properties, null, 2)));
+
+// Map Notion posts to the structure expected by the template.
+// The variable 'combinedPosts' will be used by the template directly.
+let combinedPosts = notionPostsRaw.map((post, index) => { // Added index to map function
+  const properties = post.data.properties || {};
+  const title = properties.Name?.title[0]?.plain_text || 'Untitled';
+  
+  // Ensure Date and its sub-properties exist before accessing
+  const dateProperty = properties.Date; // Changed from Created_Time
+  const createdTime = dateProperty?.date?.start;
+  const pubDate = createdTime || new Date(0).toISOString(); // Fallback to epoch if no date
+
+  const descriptionProperty = properties.Description;
+  const description = descriptionProperty?.rich_text?.[0]?.plain_text || "";
+
+  const authorProperty = properties.Author;
+  const author = authorProperty?.people?.[0]?.name || "Unknown Author"; // Added author mapping
+  
+  let image = "/icon.svg"; // Default image
+  
+  const imageProperty = properties["Featured Image URL"];
+
+  if (imageProperty) {
+    if (imageProperty.type === 'files' && imageProperty.files && imageProperty.files.length > 0) {
+      const fileObject = imageProperty.files[0];
+      if (fileObject.type === 'file' && fileObject.file?.url) {
+        image = fileObject.file.url;
+      } else if (fileObject.type === 'external' && fileObject.external?.url) {
+        image = fileObject.external.url;
+      }
+    } else if (imageProperty.type === 'url' && imageProperty.url) { // Handle Notion URL type property
+      image = imageProperty.url;
+    }
+  }
+  
+  if (index === 0) { // Log derived image URL for the first post
+    console.log(`[blog/home.astro] Derived Image URL for post "${title}" (from "Featured Image URL"): ${image}`);
+  }
+
+  // Final safety net to ensure 'image' is always a valid string.
+  if (typeof image !== 'string' || image.trim() === '') {
+    image = "/icon.svg";
+  }
+
+  const tagsProperty = properties.Tags;
+  const tags = tagsProperty?.multi_select?.map(tag => tag.name) || [];
+
+  return {
+    ...post, // Includes id (used as slug), collection
+    slug: post.id, // Use Notion's id as slug for linking
+    data: {
+      // Construct a data object similar to demo posts for component compatibility
+      title: title,
+      pubDate: pubDate,
+      description: description,
+      image: image,
+      tags: tags,
+      author: author, // Added author to the data object
+    },
+    sortDate: new Date(pubDate), // Use the determined pubDate for sorting
+    type: 'notion'
+  };
+}).sort((a, b) => { // Sort directly after mapping
+  // Ensure sortDate is a valid Date object, fallback to 0 if not
+  const dateA = (a.sortDate instanceof Date) ? a.sortDate.getTime() : 0;
+  const dateB = (b.sortDate instanceof Date) ? b.sortDate.getTime() : 0;
+  return dateB - dateA; // Sort descending (newest first)
+});
+// The 'combinedPosts' variable now holds the sorted list of Notion posts.
+---
+
+<BaseLayout>
+  <section>
+    <Wrapper variant="standard" class="py-24 lg:pt-48">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-start">
+        <div>
+          <Text
+            tag="h1"
+            variant="displayXL"
+            data-aos="fade-up"
+            data-aos-duration="1000"
+            class="dark:text-white text-base-900 font-medium tracking-tighter"
+          >
+            insights
+          </Text>
+
+          <div class="mt-4"><BlogSearch /></div>
+        </div>
+        <div
+          class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-y-12 lg:gap-y-24 gap-2 lg:col-span-3"
+        >
+          {
+            combinedPosts.map((post, index) => (
+              <BlogEntries2 post={post} index={index + 1} />
+            ))
+          }
+        </div>
+      </div>
+    </Wrapper>
+  </section>
+  <SubscribeCta />
+</BaseLayout>

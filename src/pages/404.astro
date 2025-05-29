@@ -1,0 +1,47 @@
+---
+// Fundations
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Text from "@/components/fundations/elements/Text.astro";
+import Link from "@/components/fundations/elements/Link.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+---
+
+<BaseLayout>
+  <section>
+    <Wrapper variant="standard" class="py-24 lg:py-48 text-center min-h-dvh flex flex-col items-center justify-center">
+      <div class="overflow-hidden  max-w-xl mx-auto">
+        <Text
+          tag="h1"
+          variant="displayMD"
+          data-aos="fade-up"
+          data-aos-duration="1000"
+          class="dark:text-white xl:text-9xl tracking-tight font-medium text-black text-balance"
+        >
+          404
+        </Text>
+        <Text
+          tag="p"
+          variant="textXL"
+          data-aos="fade-up"
+          data-aos-duration="1500"
+          class="mt-2 text-base-700 dark:text-base-300 lg:text-balance"
+        >
+          Error 404, also known as "Page Not Found" error, occurs when a user
+          tries to access a web page that does not exist or is no longer
+          available on the server.
+        </Text>
+      </div>
+
+      <div class="mt-4 flex justify-center">
+        <Link
+          href="/"
+          size="base"
+          variant="default"
+          class="text-base-500 dark:text-base-300 lg:text-balance"
+          title="home"
+          aria-label="home">Go back Home</Link
+        >
+      </div>
+    </Wrapper>
+  </section>
+</BaseLayout>

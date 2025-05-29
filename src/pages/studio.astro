@@ -1,0 +1,248 @@
+---
+// Fundations
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Link from "@/components/fundations/elements/Link.astro";
+import Text from "@/components/fundations/elements/Text.astro";
+import Button from "@/components/fundations/elements/Button.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+// Structure the sections with their respective items
+const services = [
+  {
+    title: "Brand Identity",
+    buttonVariant: "muted",
+    items: [
+      {
+        name: "Visual Identity",
+        price: "$4,500+",
+        description:
+          "We create cohesive visual identities that define your brand’s essence, ensuring a lasting impression across all touchpoints.",
+        includes: [
+          "Logo & Wordmark Design",
+          "Color Palette & Typography",
+          "Brand Guidelines & Assets",
+          "Business Cards & Stationery",
+          "Social Media Branding",
+          "Custom Iconography",
+          "Visual Identity System",
+          "Marketing Collateral",
+          "Brand Strategy Consultation",
+          "Ongoing Brand Support",
+        ],
+      },
+    ],
+  },
+  {
+    title: "Web & Digital Design",
+    buttonVariant: "accent",
+    items: [
+      {
+        name: "Website & Digital Experiences",
+        price: "$6,000+",
+        description:
+          "From websites to digital experiences, our designs prioritize clarity, usability, and aesthetics to engage and convert audiences.",
+        includes: [
+          "Custom Website Design",
+          "UI/UX Strategy",
+          "Wireframes & Prototypes",
+          "Responsive & Mobile-First Approach",
+          "Design System Development",
+          "Accessibility & Usability Optimization",
+          "Web & App Interface Design",
+          "SEO & Performance Considerations",
+          "Interactive Elements & Animations",
+          "Ongoing Design Support",
+        ],
+      },
+    ],
+  },
+  {
+    title: "Art Direction",
+    buttonVariant: "muted",
+    items: [
+      {
+        name: "Creative Direction & Strategy",
+        price: "$3,500+",
+        description:
+          "Through thoughtful composition, typography, and imagery, we shape the visual language that makes your brand stand out.",
+        includes: [
+          "Creative Concept Development",
+          "Visual Storytelling",
+          "Typography & Layout Design",
+          "Photography & Imagery Curation",
+          "Brand Campaigns & Advertising",
+          "Marketing & Editorial Design",
+          "Packaging & Print Coordination",
+          "Digital & Social Media Art Direction",
+          "Moodboards & Style Guides",
+          "Cross-Media Consistency",
+        ],
+      },
+    ],
+  },
+  {
+    title: "Packaging & Print",
+    buttonVariant: "muted",
+    items: [
+      {
+        name: "Tactile Brand Experiences",
+        price: "$4,000+",
+        description:
+          "We design tactile experiences that bring brands to life, from packaging to editorial layouts, balancing form and function.",
+        includes: [
+          "Packaging Design & Prototyping",
+          "Label & Box Design",
+          "Editorial & Magazine Layouts",
+          "Brochures & Print Collateral",
+          "Custom Typography & Lettering",
+          "Print Production Consultation",
+          "Material & Finish Selection",
+          "Sustainable Packaging Solutions",
+          "Large-Scale Print & Signage",
+          "Custom Merchandise & Apparel Design",
+        ],
+      },
+    ],
+  },
+  {
+    title: "Creative Strategy",
+    buttonVariant: "muted",
+    items: [
+      {
+        name: "Brand Messaging & Strategy",
+        price: "$3,000+",
+        description:
+          "Beyond visuals, we help define your brand’s voice and messaging, aligning every detail with your core identity and goals.",
+        includes: [
+          "Brand Positioning & Strategy",
+          "Brand Messaging Framework",
+          "Voice & Tone Development",
+          "Competitive & Market Analysis",
+          "Customer Persona Development",
+          "Content Strategy & Copywriting",
+          "Social Media Strategy",
+          "Marketing Campaign Planning",
+          "Brand Evolution & Rebranding",
+          "Long-Term Brand Growth Support",
+        ],
+      },
+    ],
+  },
+  {
+    title: "Consultation & Workshops",
+    buttonVariant: "muted",
+    items: [
+      {
+        name: "Guidance & Training",
+        price: "$250/hr or $1,500+ per session",
+        description:
+          "We offer tailored guidance and workshops to refine your brand’s direction, ensuring clarity and impact at every stage.",
+        includes: [
+          "1:1 Brand Consultation",
+          "Team Workshops & Training",
+          "Design & Branding Education",
+          "Brand Audit & Assessment",
+          "UI/UX & Digital Strategy Consultation",
+          "Content & Marketing Alignment",
+          "Custom Training Materials",
+          "Interactive Brand Exercises",
+          "Competitive Benchmarking",
+          "Long-Term Strategy Development",
+        ],
+      },
+    ],
+  },
+];
+
+---
+<BaseLayout>
+  <section>
+    <Wrapper variant="standard" class="py-24 lg:pt-48">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <div class="overflow-hidden ">
+          <Text
+            tag="h1"
+            variant="displayMD"
+            data-aos="fade-down"
+            data-aos-duration="1500"
+            class="dark:text-white xl:text-6xl tracking-tight font-medium text-black text-balance"
+          >
+            Studio
+          </Text>
+          <Text
+            tag="p"
+            variant="textBase"
+            data-aos="fade-up" data-aos-duration="1200"
+            class="mt-2 text-base-700 dark:text-base-300 lg:text-balance"
+          >
+            Build innovative and scalable solutions with my expertise in software
+            development, architecture, and cutting-edge technology.
+          </Text>
+         <div 
+          data-aos="fade-up"
+         data-aos-duration="1500"
+         class="mt-8">
+            <Text
+            href="#_"
+            tag="a"
+            variant="textXS"
+           
+            class="uppercase text-black  dark:text-white hover:text-base-500"
+          >
+              Schedule a call
+          </Text>
+         </div>
+        </div>
+        <div class="relative grid grid-cols-1 gap-12 mt-4 md:grid-cols-2 lg:grid-cols-2   lg:col-span-3">
+          {
+            services.map((section) => (
+              <div class="flex flex-col justify-between h-full gap-8 pb-8 border-b border-base-200 dark:border-base-800">
+               <div>
+                  <Text tag="h3" variant="displaySM" class="font-medium leading-6 text-base-900 dark:text-white group-hover:text-accent-400 tracking-tighter">
+                    {section.title}
+                  </Text>
+                  <div
+                    class="mt-8 ">
+                    {section.items.map((item) => (
+                      <div >
+                        <Text tag="p" variant="textSM" class="text-base-500 text dark:text-base-400">
+                          Starting at ${item.price}
+                        </Text>
+                        <Text tag="h4" variant="textLG"  class="text-base font-medium text-base-900  dark:text-white">
+                          {item.name}
+                        </Text>
+                        <Text tag="p" variant="textBase" class="text-base-500 t dark:text-base-400 mt-4">
+                          {item.description}
+                        </Text>
+                      </div>
+                      
+                      <div class="relative pt-2 mt-2    ">
+                  <Button
+                  size="base"
+                  variant={section.buttonVariant}
+                 class="w-full "
+                    >
+                    Get started
+                  </Button>
+                       
+                        <ul
+                          class="flex flex-col gap-2 mt-4 list-none list-inside "
+                          role="list">
+                          {item.includes.map((feature) => (
+                            <li>
+                              <Text tag="p" variant="textXS" class="flex items-center gap-2 text-base-700 dark:text-base-300">
+                              — {feature}</Text></li>
+                          ))}
+                        </ul>
+                      </div>
+                    ))}
+                  </div>
+               </div>
+                
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </Wrapper>
+  </section>
+</BaseLayout>

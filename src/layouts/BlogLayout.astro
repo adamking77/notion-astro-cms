@@ -1,0 +1,296 @@
+---
+// Assets
+import { Image } from "astro:assets";
+// Fundations
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+// Components
+import SubscribeCta from "@/components/blog/SubscribeCta.astro";
+import BlogEntries1 from "@/components/blog/BlogEntries1.astro";
+// Content
+const { frontmatter } = Astro.props;
+import { getCollection } from "astro:content";
+// Fetch raw Notion posts
+const rawLatestPosts = await getCollection("database");
+
+// Map and sort Notion posts for the "Latest insights" section
+const mappedLatestPosts = rawLatestPosts.map(post => {
+  const properties = post.data.properties || {};
+  const title = properties.Name?.title[0]?.plain_text || 'Untitled';
+  
+  const dateProperty = properties.Date; // Changed from Created_Time
+  const createdTime = dateProperty?.date?.start;
+  const pubDate = createdTime || new Date(0).toISOString();
+
+  const descriptionProperty = properties.Description;
+  const description = descriptionProperty?.rich_text?.[0]?.plain_text || "";
+  
+  const authorProperty = properties.Author;
+  const author = authorProperty?.people?.[0]?.name || "Unknown Author"; // Changed to people[0].name
+
+  let image = "/icon.svg"; // Default image
+  const imageProperty = post.data.properties["Featured Image URL"];
+
+  if (imageProperty) {
+    if (imageProperty.type === 'files' && imageProperty.files && imageProperty.files.length > 0) {
+      const fileObject = imageProperty.files[0];
+      if (fileObject.type === 'file' && fileObject.file?.url) {
+        image = fileObject.file.url;
+      } else if (fileObject.type === 'external' && fileObject.external?.url) {
+        image = fileObject.external.url;
+      }
+    } else if (imageProperty.type === 'url' && imageProperty.url) { // Handle Notion URL type property
+      image = imageProperty.url;
+    }
+  }
+
+  // Final safety net to ensure 'image' is always a valid string.
+  if (typeof image !== 'string' || image.trim() === '') {
+    image = "/icon.svg";
+  }
+
+  const tagsProperty = properties.Tags;
+  const tags = tagsProperty?.multi_select?.map(tag => tag.name) || [];
+
+  return {
+    ...post,
+    slug: post.id,
+    data: {
+      title: title,
+      pubDate: pubDate,
+      description: description,
+      author: author, // Added author here
+      image: image,
+      tags: tags,
+    },
+    sortDate: new Date(pubDate), // Used for sorting
+    type: 'notion' // For potential future differentiation
+  };
+}).sort((a, b) => { // Sort after mapping
+  const dateA = (a.sortDate instanceof Date) ? a.sortDate.getTime() : 0;
+  const dateB = (b.sortDate instanceof Date) ? b.sortDate.getTime() : 0;
+  return dateB - dateA; // Sort descending (newest first)
+});
+
+let imageSrcForLayout = "/icon.svg"; // Default image for the layout
+const imagePropertyForLayout = frontmatter.properties["Featured Image URL"];
+if (imagePropertyForLayout) {
+  if (imagePropertyForLayout.type === 'files' && imagePropertyForLayout.files && imagePropertyForLayout.files.length > 0) {
+    const fileObject = imagePropertyForLayout.files[0];
+    if (fileObject.type === 'file' && fileObject.file?.url) {
+      imageSrcForLayout = fileObject.file.url;
+    } else if (fileObject.type === 'external' && fileObject.external?.url) {
+      imageSrcForLayout = fileObject.external.url;
+    }
+  } else if (imagePropertyForLayout.type === 'url' && imagePropertyForLayout.url) {
+    imageSrcForLayout = imagePropertyForLayout.url;
+  }
+}
+if (typeof imageSrcForLayout !== 'string' || imageSrcForLayout.trim() === '') {
+  imageSrcForLayout = "/icon.svg";
+}
+---
+
+<BaseLayout>
+  <section>
+    <Wrapper variant="standard" class="py-24 lg:py-48">
+      <div>
+        <Text
+          tag="h1"
+          variant="display3XL"
+          data-aos="fade-up"
+          data-aos-duration="1000"
+          class="dark:text-white text-base-900 font-medium tracking-tighter lowercase lg:text-balance"
+        >
+          {frontmatter.properties.Name?.title[0]?.plain_text ?? "Untitled"}
+        </Text>
+
+        <Text
+          tag="p"
+          variant="textXL"
+          data-aos="fade-up"
+          data-aos-duration="1200"
+          class="mt-2 text-base-700 dark:text-base-300 lg:text-balance"
+        >
+          {frontmatter.properties.Description?.rich_text[0]?.plain_text ?? ""}
+        </Text>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-start mt-12">
+        <div
+          class="flex flex-col divide-y divide-base-200 dark:divide-base-800 border-y border-base-200 dark:border-base-800 overflow-hidden"
+        >
+          <div
+            data-aos="fade-up"
+            data-aos-duration="1000"
+            class="flex flex-col gap-1 py-4"
+          >
+            <Text
+              tag="p"
+              variant="displayXL"
+              class="dark:text-white text-base-900 font-medium tracking-tighter"
+            >
+              date
+            </Text>
+            <Text
+              tag="span"
+              variant="textBase"
+              class="text-base-700 dark:text-base-300"
+            >
+              <time
+                datetime={new Date(frontmatter.properties.Date?.date?.start ?? Date.now()).toLocaleDateString(
+                  "en-US",
+                  {
+                    year: "numeric",
+                    month: "long",
+                    day: "2-digit",
+                  }
+                )}
+              >
+                {
+                  new Date(frontmatter.properties.Date?.date?.start ?? Date.now()).toLocaleDateString("en-US", {
+                    year: "numeric",
+                    month: "long",
+                    day: "2-digit",
+                  })
+                }</time
+              >
+            </Text>
+          </div>
+          <div
+            data-aos="fade-up"
+            data-aos-duration="1200"
+            class="flex flex-col gap-1 py-4"
+          >
+            <Text
+              tag="p"
+              variant="displayXL"
+              class="dark:text-white text-base-900 font-medium tracking-tighter"
+            >
+              author
+            </Text>
+            <Text
+              tag="p"
+              variant="textBase"
+              class="text-base-700 dark:text-base-300"
+              >{frontmatter.properties.Author?.people?.[0]?.name ?? "Unknown Author"}</Text
+            >
+          </div>
+          <div
+            data-aos="fade-up"
+            data-aos-duration="1500"
+            class="flex flex-col gap-1 py-4"
+          >
+            <Text
+              tag="p"
+              variant="displayXL"
+              class="dark:text-white text-base-900 font-medium tracking-tighter"
+            >
+              tags
+            </Text>
+            <div class="flex flex-col">
+              {
+                (frontmatter.properties.Tags?.multi_select ?? []).map((tagObj) => (
+                  <Text
+                    tag="a"
+                    variant="textBase"
+                    href={`/blog/tags/${tagObj.name}`}
+                    class=" text-base-700 dark:text-base-300 lg:text-balance capitalize"
+                  >
+                    {tagObj.name}
+                  </Text>
+                ))
+              }
+            </div>
+          </div>
+        </div>
+        <Image
+          width={1000}
+          height={100}
+          src={imageSrcForLayout}
+          alt={frontmatter.properties["Featured Image Alt"]?.rich_text[0]?.plain_text ?? "Blog post image"}
+          data-aos="fade-up"
+          data-aos-duration="1500"
+          class="relative overflow-hidden lg:col-span-3 aspect-square size-full object-cover object-center"
+        />
+      </div>
+
+      <div class="mt-12 grid grid-cols-1 md:grid-cols-4">
+        <div class="lg:col-span-3 lg:col-start-2">
+          <Wrapper variant="prose">
+            <div>
+              <slot />
+            </div>
+          </Wrapper>
+          <div class="flex flex-col gap-4">
+            <Text
+              tag="p"
+              variant="displayXL"
+              class="dark:text-white text-base-900 font-medium tracking-tighter"
+            >
+              Share on:
+            </Text>
+            <div class="flex flex-col gap-y-4">
+              <Text
+                href="#_"
+                tag="a"
+                variant="textXL"
+                class="text-base-500 dark:text-base-400"
+              >
+                Instagram
+              </Text>
+              <Text
+                href="#_"
+                tag="a"
+                variant="textXL"
+                class="text-base-500 dark:text-base-400"
+              >
+                Twitter
+              </Text>
+            </div>
+          </div>
+        </div>
+      </div>
+    </Wrapper>
+  </section>
+
+  <SubscribeCta />
+  <section>
+    <Wrapper variant="standard" class="py-24">
+      <div class="grid grid-cols-1 lg:grid-cols-4 gap-4">
+        <div class="flex flex-col">
+          <Text
+            tag="h3"
+            variant="displayXL"
+            data-aos="fade-up"
+            data-aos-duration="1000"
+            class="dark:text-white text-base-900 font-medium tracking-tighter"
+          >
+            Latest insights
+          </Text>
+          <Text
+            tag="a"
+            variant="textXS"
+            data-aos="fade-up"
+            data-aos-duration="1500"
+            href="/blog/home"
+            class="uppercase text-black dark:text-white hover:text-base-500"
+          >
+            view all
+          </Text>
+        </div>
+        <div
+          class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-y-12 gap-2 lg:col-span-3"
+        >
+          {
+            mappedLatestPosts
+              .slice(0, 3)
+              .map((post, index) => (
+                <BlogEntries1 post={post} index={index + 1} />
+              ))
+          }
+        </div>
+      </div>
+    </Wrapper>
+  </section>
+</BaseLayout>

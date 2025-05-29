@@ -1,0 +1,329 @@
+---
+// Assets
+import { Image } from "astro:assets";
+import Avatar from "@/images/avatar.jpeg";
+// Team images
+import One from "@/images/team/1.jpeg";
+import Two from "@/images/team/2.jpeg";
+import Three from "@/images/team/3.jpeg";
+import Four from "@/images/team/4.jpeg";
+import Five from "@/images/team/5.jpeg";
+import Six from "@/images/team/6.jpeg";
+// Fundations
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Link from "@/components/fundations/elements/Link.astro";
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+// Components
+import LogoCloud from "@/components/assets/LogoCloud.astro";
+// Awards
+const awards = [
+  {
+    url: "#_",
+    name: "Elliot Hayes",
+    award: "Best Interactive Experience",
+    organization: "AWWWARDS",
+    project: "Nebula UI",
+  },
+  {
+    url: "#_",
+    name: "Jordan Blake",
+    award: "Innovation in Design",
+    organization: "FWA",
+    project: "Vortex Labs",
+  },
+  {
+    url: "#_",
+    name: "Samantha Cole",
+    award: "Honorable Mention",
+    organization: "CSSDA",
+    project: "Echo Framework",
+  },
+  {
+    url: "#_",
+    name: "Alex Monroe",
+    award: "Best Web Experience",
+    organization: "The Webby Awards",
+    project: "Quantum Edge",
+  },
+  {
+    url: "#_",
+    name: "Dylan Reeves",
+    award: "UX Excellence",
+    organization: "CSSDA",
+    project: "Stratosphere",
+  },
+  {
+    url: "#_",
+    name: "Taylor Brooks",
+    award: "Site of the Day",
+    organization: "AWWWARDS",
+    project: "Horizon Studio",
+  },
+  {
+    url: "#_",
+    name: "Morgan Ellis",
+    award: "Cutting-Edge Design",
+    organization: "FWA",
+    project: "Atlas Platform",
+  },
+  {
+    url: "#_",
+    name: "Cameron Scott",
+    award: "Best UI Concept",
+    organization: "AWWWARDS",
+    project: "Opus Interface",
+  },
+  {
+    url: "#_",
+    name: "Sydney Clarke",
+    award: "Site of the Day",
+    organization: "CSSDA",
+    project: "Nova Grid",
+  },
+  {
+    url: "#_",
+    name: "Parker West",
+    award: "Design Excellence",
+    organization: "CSSDA",
+    project: "Lunar Systems",
+  },
+  {
+    url: "#_",
+    name: "Reese Bennett",
+    award: "Honorable Mention",
+    organization: "AWWWARDS",
+    project: "Echo Framework",
+  },
+];
+// Team
+const teamMembers = [
+  {
+    name: "Hiroshi Tanaka",
+    role: "Founder & Creative Director",
+    image: One,
+    bio: "With a passion for minimalism and precision, Hiroshi leads the studio in crafting timeless brand identities.",
+  },
+  {
+    name: "Yuki Nakamura",
+    role: "Lead Designer",
+    image: Two,
+    bio: "Yuki specializes in typography and layout, ensuring every design is both visually striking and meaningful.",
+  },
+  {
+    name: "Souta Fujiwara",
+    role: "Brand Strategist",
+    image: Three,
+    bio: "Souta blends market insights with creative vision to develop brands that connect deeply with their audiences.",
+  },
+  {
+    name: "Emiko Sato",
+    role: "UX/UI Designer",
+    image: Four,
+    bio: "Emiko focuses on intuitive and seamless digital experiences that enhance user engagement.",
+  },
+  {
+    name: "Ren Kobayashi",
+    role: "Art Director",
+    image: Five,
+    bio: "Ren ensures visual consistency across all projects, maintaining a balance of form and function.",
+  },
+  {
+    name: "Aya Takahashi",
+    role: "Project Manager",
+    image: Six,
+    bio: "Aya keeps projects running smoothly, ensuring deadlines are met with precision and efficiency.",
+  },
+];
+---
+
+<BaseLayout>
+  <section>
+    <Wrapper variant="standard" class="py-24 lg:pt-48">
+      <div class="overflow-hidden">
+        <Text
+          tag="h1"
+          variant="displayMD"
+          data-aos="fade-down"
+          data-aos-duration="1500"
+          class="dark:text-white xl:text-6xl tracking-tight font-medium text-black text-balance"
+        >
+          Dezain Sutajio Kotei® is a design studio based in Fukuoka that
+          specializes in creating beautiful and simple brands for businesses
+          that customers remember.
+        </Text>
+      </div>
+      <Image
+        width={1000}
+        height={2000}
+        src={Avatar}
+        alt="#_"
+        class="w-full aspect-[8/6] mt-4 object-cover object-center"
+      />
+
+      <Text
+        tag="p"
+        variant="textXL"
+        class="text-base-500 dark:text-base-300 lg:text-balance mt-12 md:max-w-2xl"
+      >
+        At Dezain Sutajio Kotei®, we craft thoughtful, elegant design solutions
+        that leave a lasting impression. Based in Fukuoka, our studio
+        specializes in distilling brands to their essence—creating simple,
+        memorable identities that connect with audiences effortlessly.
+        <br />
+        <br />
+        With a deep appreciation for clarity, balance, and craftsmanship, we blend
+        strategy and aesthetics to build brands that feel both timeless and distinctive.
+        Our work is rooted in precision and purpose, ensuring that every design is
+        not only visually compelling but also meaningful and functional.
+        <br />
+        <br />
+        We believe that great design is an experience—one that speaks without excess,
+        resonates without noise, and endures beyond trends. Through a refined and
+        intentional approach, we shape identities that stand out in a world of fleeting
+        impressions.
+      </Text>
+    </Wrapper>
+  </section>
+  <section>
+    <Wrapper class="pt-12 pb-24">
+      <div class="overflow-hidden">
+        <Text
+          tag="h3"
+          variant="displayXL"
+          data-aos="fade-up"
+          data-aos-duration="1000"
+          class="dark:text-white text-base-900 font-medium tracking-tighter"
+        >
+          Awards &amp; honors
+        </Text>
+      </div>
+      <ul
+        role="list"
+        class="flex flex-col divide-y divide-base-200 dark:divide-base-800 border-t border-base-200 dark:border-base-800 mt-4"
+      >
+        {
+          awards.map((award) => (
+            <li class=" items-baseline flex flex-col lg:flex-row lg:justify-between py-4  sticky top-20 z-10 bg-base-100 dark:bg-base-900">
+              <div>
+                <Text
+                  tag="h3"
+                  variant="displayMD"
+                  class="dark:text-white text-base-900 font-medium tracking-tighter "
+                >
+                  {award.name}
+                </Text>
+                <Text
+                  tag="p"
+                  variant="textXL"
+                  class="text-base-500 dark:text-base-400"
+                >
+                  {award.award}
+                </Text>
+                <Text
+                  tag="p"
+                  variant="textXL"
+                  class="text-base-500 dark:text-base-500"
+                >
+                  {award.organization}
+                </Text>
+                <Text
+                  tag="p"
+                  variant="textXL"
+                  class="text-base-500 dark:text-base-700"
+                >
+                  {award.project}
+                </Text>
+              </div>
+              <a href={award.url} title={award.name} aria-label={award.name}>
+                <svg
+                  class="size-8 lg:size-14 dark:text-white text-base-900"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="currentColor"
+                  viewBox="0 0 256 256"
+                >
+                  <path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z" />
+                </svg>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </Wrapper>
+  </section>
+  <LogoCloud />
+  <section>
+    <Wrapper variant="standard" class="py-24">
+      <div class="grid grid-cols-1 lg:grid-cols-4 gap-4">
+        <Text
+          tag="h3"
+          variant="displayXL"
+          data-aos="fade-up"
+          data-aos-duration="1000"
+          class="dark:text-white text-base-900 font-medium tracking-tighter"
+          >the
+          <br />
+          team
+        </Text>
+
+        <div
+          class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-y-12 gap-2 lg:col-span-3"
+        >
+          {
+            teamMembers.map((member, index) => (
+              <div class="flex flex-col ">
+                <Image
+                  width={500}
+                  height={500}
+                  src={member.image}
+                  alt={member.name}
+                  class="w-full  object-cover"
+                />
+                <div class="mt-2">
+                  <Text
+                    tag="h3"
+                    variant="textBase"
+                    class="leading-6 text-base-900 dark:text-white"
+                  >
+                    (0{index + 1}) {member.name}
+                  </Text>
+                  <Text
+                    tag="p"
+                    variant="textSM"
+                    class="text-base-500 dark:text-base-400"
+                  >
+                    {member.role}
+                  </Text>
+                  <Text
+                    tag="p"
+                    variant="textSM"
+                    class="text-base-500 mt-4 dark:text-base-400"
+                  >
+                    {member.bio}
+                  </Text>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </Wrapper>
+    <section>
+      <Wrapper variant="standard" class="py-12">
+        <Text
+          tag="h3"
+          variant="displayMD"
+          class="dark:text-white xl:text-7xl tracking-tight font-medium text-black text-balance lg:col-span-3"
+        >
+          Let's work together to refine and elevate your brand, creating a
+          lasting impression that resonates with your audience.
+        </Text>
+        <div class="flex mt-4">
+          <Link size="xl" variant="default" href="/forms/contact">
+            Contact us
+          </Link>
+        </div>
+      </Wrapper>
+    </section>
+  </section>
+</BaseLayout>

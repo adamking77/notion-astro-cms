@@ -1,0 +1,53 @@
+---
+// Assets
+// import { Image } from "astro:assets"; // Commented out to use <img>
+// Fundations
+import Text from "@/components/fundations/elements/Text.astro";
+const { index } = Astro.props;
+
+const postData = Astro.props.post.data;
+const postSlug = Astro.props.post.slug;
+
+const url = "/blog/posts/" + postSlug;
+const title = postData.title ?? "Untitled";
+const author = postData.author ?? "Unknown Author";
+const rawImage = postData.image;
+// Ensure 'image' is a valid string, falling back to /icon.svg
+const image = typeof rawImage === 'string' && rawImage.trim() !== '' ? rawImage : "/icon.svg";
+const description = postData.description ?? "";
+const pubDate = new Date(postData.pubDate ?? Date.now()).toLocaleDateString("en-US", {
+  year: "numeric",
+  month: "long",
+  day: "2-digit",
+});
+---
+
+<div class="relative">
+  <a class="absolute inset-0 z-10" href={url} title={title}></a>
+  <div class="relative">
+    <Text tag="h3" variant="textXS" class="leading-6 text-base-700"
+      >{author} — <timed date={pubDate}>{pubDate}</timed></Text
+    >
+    <img
+      src={image}
+      alt={title}
+      width="1000"
+      height="100"
+      class="w-full object-cover object-center mt-1"
+      loading="lazy"
+    />
+
+    <div class="mt-1"> {/* Ensure this div is still present for title/description */}
+      <Text
+        tag="h3"
+        variant="textBase"
+        class="leading-6 text-base-900 dark:text-white"
+      >
+        {title}
+      </Text>
+      <Text tag="p" variant="textSM" class="text-base-500 dark:text-base-400">
+        {description}
+      </Text>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,48 @@
+---
+// Assets
+// import { Image } from "astro:assets"; // Commented out to use <img>
+// Fundations
+import Text from "@/components/fundations/elements/Text.astro";
+const { index } = Astro.props;
+const postData = Astro.props.post.data;
+const postSlug = Astro.props.post.slug;
+
+const url = "/blog/posts/" + postSlug;
+const title = postData.title ?? "Untitled";
+const author = postData.author ?? "Unknown Author";
+const pubDate = postData.pubDate ? new Date(postData.pubDate) : new Date(0);
+const formattedDate = pubDate.toLocaleDateString("en-US", {
+  year: "numeric",
+  month: "long",
+  day: "2-digit",
+});
+
+const rawImage = postData.image;
+const image = typeof rawImage === 'string' && rawImage.trim() !== '' ? rawImage : "/icon.svg";
+// console.log(`BlogEntries1 - Using <img> with path for title "${title}":`, image); // Debug log removed
+---
+<div class="relative group">
+  <a class="absolute inset-0 z-20" href={url} title={title}></a>
+  <div class="relative">
+    <img
+      src={image}
+      alt={title}
+      width="1000"
+      height="100"
+      class="size-full object-cover object-center"
+      loading="lazy"
+    />
+    <div class="mt-1"> {/* Ensure this div is still present for metadata and title */}
+      <Text variant="textSM" class="text-base-700 dark:text-base-300 mb-1">
+        {author} — {formattedDate}
+      </Text>
+      <Text
+        tag="h3"
+        variant="textBase"
+        class="leading-6 text-base-900 dark:text-white"
+      >
+        {title}
+      </Text>
+    </div>
+  </div>
+</div>

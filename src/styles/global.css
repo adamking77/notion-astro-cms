@@ -1,0 +1,106 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/forms";
+@plugin "@tailwindcss/typography";
+@plugin "tailwind-scrollbar-hide";
+@custom-variant dark (&:where(.dark, .dark *));
+@theme {
+  /* Typography */
+  --font-sans: "Geist", sans-serif;
+  --font-mono: "Geist Mono", monospace;
+  /* Colors */
+  --text-10xl: 8.5rem;
+  --text-11xl: 9rem;
+  --text-12xl: 9.5rem;
+  --text-13xl: 10rem;
+  --text-14xl: 10.5rem;
+  --text-15xl: 11rem;
+  /* accent Shades */
+  --color-accent-50: oklch(96.56% 0.013 41.2);
+  --color-accent-100: oklch(93.04% 0.028 36.86);
+  --color-accent-200: oklch(86.4% 0.057 37.22);
+  --color-accent-300: oklch(79.75% 0.089 37.16);
+  --color-accent-400: oklch(74.19% 0.118 37.31);
+  --color-accent-500: oklch(68.44% 0.15 37.77);
+  --color-accent-600: oklch(63.12% 0.182 36.62);
+  --color-accent-700: oklch(52.41% 0.16 36.52);
+  --color-accent-800: oklch(38.72% 0.112 36.83);
+  --color-accent-900: oklch(24.88% 0.064 37.97);
+  --color-accent-950: oklch(17.91% 0.038 43.07);
+  --color-base-50: oklch(96.14% 0.001 286.38);
+  --color-base-100: oklch(93.05% 0.002 247.84);
+  --color-base-200: oklch(85.32% 0.003 228.79);
+  --color-base-300: oklch(78.16% 0.004 247.87);
+  --color-base-400: oklch(69.77% 0.006 247.91);
+  --color-base-500: oklch(62.18% 0.006 247.92);
+  --color-base-600: oklch(53.66% 0.006 247.94);
+  --color-base-700: oklch(45.48% 0.005 236.59);
+  --color-base-800: oklch(35.98% 0.004 264.52);
+  --color-base-900: oklch(26.38% 0.002 247.92);
+  --color-base-950: oklch(18.11% 0.002 197.01);
+  /* Keyframes */
+  --animate-marquee: marquee 12s linear infinite;
+  --animate-rightMarquee: rightMarquee 300s linear infinite;
+  --animate-slowMarquee: marquee 300s linear infinite;
+  @keyframes marquee {
+    0% {
+      transform: translateX(0%);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+  @keyframes rightMarquee {
+    0% {
+      transform: translateX(0%);
+    }
+    100% {
+      transform: translateX(100%);
+    }
+  }
+}
+:root {
+  font-variant-numeric: tabular-nums;
+  /* Shiki  code styles */
+  --astro-code-color-text: theme(colors.base.300);
+  --astro-code-background: theme(colors.base.900);
+  --astro-code-token-punctuation: theme(colors.base.400);
+  --astro-code-token-parameter: theme(colors.base.300);
+  --astro-code-token-line-number: theme(colors.base.500);
+  --astro-code-token-comment: theme(colors.base.500);
+  --astro-code-token-cdata: theme(colors.base.300);
+  --astro-code-token-constant: theme(colors.amber.400);
+  --astro-code-token-function: theme(colors.amber.500);
+  --astro-code-token-attr-name: theme(colors.amber.400);
+  --astro-code-token-builtin: theme(colors.amber.300);
+  --astro-code-token-boolean: theme(colors.amber.400);
+  --astro-code-token-class-name: theme(colors.amber.300);
+  --astro-code-token-property: theme(colors.amber.400);
+  --astro-code-token-selector: theme(colors.amber.500);
+  --astro-code-token-string: theme(colors.emerald.400);
+  --astro-code-token-string-expression: theme(colors.amber.400);
+  --astro-code-token-variable: theme(colors.orange.400);
+  --astro-code-token-keyword: theme(colors.orange.300);
+  --astro-code-token-symbol: theme(colors.orange.400);
+  --astro-code-token-number: theme(colors.orange.400);
+  --astro-code-token-operator: theme(colors.orange.300);
+  --astro-code-token-deleted: theme(colors.orange.300);
+  --astro-code-token-changed: theme(colors.orange.300);
+  --astro-code-token-important: theme(colors.orange.400);
+  --astro-code-token-tag: theme(colors.yellow.400);
+  --astro-code-token-inserted: theme(colors.yellow.300);
+  --astro-code-token-namespace: theme(colors.yellow.400);
+  --astro-code-token-atrule: theme(colors.yellow.400);
+  --astro-code-token-entity: theme(colors.yellow.400);
+  --astro-code-token-highlight: theme(colors.amber.400);
+  --astro-code-token-alert: theme(colors.amber.400);
+  --astro-code-token-emphasis: theme(colors.amber.300);
+  --astro-code-token-focus: theme(colors.amber.500);
+  --astro-code-token-notice: theme(colors.amber.400);
+  --astro-code-token-attr-value: theme(colors.amber.300);
+  --astro-code-token-regex: theme(colors.amber.400);
+  --astro-code-token-doctype: theme(colors.base.500);
+  --astro-code-token-prolog: theme(colors.base.500);
+  --astro-code-token-bold: inherit;
+  --astro-code-token-italic: italic;
+  --astro-code-token-underline: underline;
+}

@@ -1,0 +1,88 @@
+---
+// Fundations
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+
+// Services Array
+const services = [
+  {
+    title: "Brand Identity",
+    description:
+      "We create cohesive visual identities that define your brand’s essence, ensuring a lasting impression across all touchpoints.",
+  },
+  {
+    title: "Web & Digital Design",
+    description:
+      "From websites to digital experiences, our designs prioritize clarity, usability, and aesthetics to engage and convert audiences.",
+  },
+  {
+    title: "Art Direction",
+    description:
+      "Through thoughtful composition, typography, and imagery, we shape the visual language that makes your brand stand out.",
+  },
+  {
+    title: "Packaging & Print",
+    description:
+      "We design tactile experiences that bring brands to life, from packaging to editorial layouts, balancing form and function.",
+  },
+  {
+    title: "Creative Strategy",
+    description:
+      "Beyond visuals, we help define your brand’s voice and messaging, aligning every detail with your core identity and goals.",
+  },
+  {
+    title: "Consultation & Workshops",
+    description:
+      "We offer tailored guidance and workshops to refine your brand’s direction, ensuring clarity and impact at every stage.",
+  },
+];
+---
+
+<section>
+  <Wrapper variant="standard" class="py-24">
+    <div
+      class="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-4 overflow-hidden"
+    >
+      <Text
+        tag="h3"
+        variant="displayXL"
+        data-aos="fade-up"
+        data-aos-duration="1000"
+        class="dark:text-white text-base-900 font-medium tracking-tighter text-balance"
+      >
+        services
+      </Text>
+      <div
+        class="flex flex-col sm:col-span-2 lg:col-span-3 divide-y divide-base-200 dark:divide-base-800 border-y border-base-200 dark:border-base-800"
+      >
+        {
+          services.map((service, index) => (
+            <div class="grid grid-cols-1 lg:grid-cols-3 py-4">
+              <Text
+                tag="h4"
+                variant="textBase"
+                data-aos="fade-up"
+                data-aos-duration="1500"
+                class="dark:text-white text-base-900 font-medium tracking-tight text-balance"
+              >
+                <span>(0{index + 1})</span>
+                {service.title}
+              </Text>
+              <div class="lg:col-span-2 overflow-hidden">
+                <Text
+                  tag="h4"
+                  variant="textBase"
+                  data-aos="fade-up"
+                  data-aos-duration="2000"
+                  class="dark:text-base-400 text-base-700"
+                >
+                  {service.description}
+                </Text>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </Wrapper>
+</section>

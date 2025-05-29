@@ -1,0 +1,47 @@
+---
+// Fundations
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+// Components
+import { getCollection } from "astro:content";
+const allPosts = await getCollection("posts");
+// Tags
+const tags = [...new Set(allPosts.map((post) => post.data.tags).flat())];
+---
+
+<BaseLayout>
+  <section>
+    <Wrapper variant="standard" class="py-24 lg:pt-48">
+      <div class="overflow-hidden">
+        <Text
+          tag="h1"
+          variant="displayMD"
+          data-aos="fade-down"
+          data-aos-duration="1500"
+          class="dark:text-white xl:text-6xl tracking-tight font-medium text-black text-balance"
+        >
+          All tags
+        </Text>
+      </div>
+      <div
+        class="mt-2 flex flex-col divide-y divide-base-200 dark:divide-base-800 border-t border-base-200 dark:border-base-800"
+      >
+        {
+          tags.map((tag) => (
+            <Text
+              tag="a"
+              variant="displaySM"
+              data-aos="fade-up"
+              data-aos-duration="1000"
+              class="dark:text-white text-base-900 font-medium tracking-tighter py-4"
+              href={`/blog/tags/${tag}`}
+            >
+              {tag}
+            </Text>
+          ))
+        }
+      </div>
+    </Wrapper>
+  </section>
+</BaseLayout>

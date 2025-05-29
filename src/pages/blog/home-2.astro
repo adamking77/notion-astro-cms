@@ -1,0 +1,79 @@
+---
+// Fundations
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+// Components
+import BlogSearch from "@/components/blog/BlogSearch.astro";
+import BlogEntries1 from "@/components/blog/BlogEntries1.astro";
+import BlogEntries3 from "@/components/blog/BlogEntries3.astro";
+import SubscribeCta from "@/components/blog/SubscribeCta.astro";
+// Content
+import { getCollection } from "astro:content";
+// Sort posts by date
+const allPosts = await getCollection("posts");
+allPosts.sort((a, b) => {
+  const dateA = new Date(a.data.pubDate).getTime(); // Convert to timestamp
+  const dateB = new Date(b.data.pubDate).getTime(); // Convert to timestamp
+  return dateB - dateA; // Compare timestamps
+});
+---
+
+<BaseLayout>
+  <section>
+    <Wrapper variant="standard" class="py-24 lg:pt-48">
+      <div class="flex items-center justify-between gap-2">
+        <Text
+          tag="h1"
+          variant="displayXL"
+          data-aos="fade-up"
+          data-aos-duration="1000"
+          class="dark:text-white text-base-900 font-medium tracking-tighter"
+        >
+          insights
+        </Text>
+        <div class="mt-4"><BlogSearch /></div>
+      </div>
+      <div
+        class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-y-12 lg:gap-y-24 gap-2 mt-4"
+      >
+        {
+          allPosts.map((post, index) => (
+            <BlogEntries3 post={post} index={index + 1} />
+          ))
+        }
+      </div>
+    </Wrapper>
+  </section>
+  <SubscribeCta />
+  <section>
+    <Wrapper class="py-8">
+      <div class="overflow-hidden">
+        <Text
+          tag="h3"
+          variant="textLG"
+          data-aos="fade-up"
+          data-aos-duration="1000"
+          class="dark:text-white text-base-900 text-balance"
+        >
+          Latest relfexions
+        </Text>
+      </div>
+      <div
+        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-y-12 lg:gap-1 mt-4"
+      >
+        {allPosts.slice(0, 4).map((post) => <BlogEntries1 post={post} />)}
+      </div>
+      <div class="flex justify-end mt-4 pt-2">
+        <Text
+          tag="a"
+          href="/blog/home"
+          variant="textBase"
+          class="dark:text-base-400 text-base-700 text-balance"
+        >
+          All relfexions
+        </Text>
+      </div>
+    </Wrapper>
+  </section>
+</BaseLayout>

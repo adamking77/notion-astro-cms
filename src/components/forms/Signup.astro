@@ -1,0 +1,102 @@
+---
+// Assets
+import { Image } from "astro:assets";
+import Avatar from "@/images/avatar.jpeg";
+// Fundations
+import Text from "@/components/fundations/elements/Text.astro";
+import Button from "@/components/fundations/elements/Button.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+---
+
+<section>
+  <Wrapper variant="standard" class="py-24 lg:pt-48">
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-4">
+      <div>
+        <Text
+          tag="h1"
+          variant="displayMD"
+          data-aos="fade-up"
+          data-aos-duration="1500"
+          class="dark:text-white xl:text-4xl tracking-tight font-medium text-black text-balance"
+        >
+          Sing up
+        </Text>
+        <form class="mt-12">
+          <div class="flex flex-col gap-2">
+            <!-- Email Field -->
+            <div>
+              <label for="email" class="sr-only">Email</label>
+              <input
+                type="email"
+                name="email"
+                id="email"
+                placeholder="Enter your email"
+                autocomplete="email"
+                class="w-full flex-auto appearance-none rounded-md dark:text-white text-base-900 outline-inset border-transparent px-3 py-2 shadow-base-800/5 dark:placeholder:text-base-400 dark:place-holder-text-base-700 duration-300 h-9 focus:border-base-500 focus:outline-none focus:outline-4 focus:outline-base-500/10 sm:text-sm bg-base-50 dark:bg-base-800"
+              />
+            </div>
+            <!-- Password Field -->
+            <div>
+              <label for="password" class="sr-only">Password</label>
+              <input
+                type="password"
+                name="password"
+                id="password"
+                placeholder="Choose a password"
+                autocomplete="new-password"
+                pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
+                title="Use at least 8 characters, including 1 uppercase, 1 lowercase, 1 digit, and 1 special character."
+                class="w-full flex-auto appearance-none rounded-md dark:text-white text-base-900 outline-inset border-transparent px-3 py-2 shadow-base-800/5 dark:placeholder:text-base-400 dark:place-holder-text-base-700 duration-300 h-9 focus:border-base-500 focus:outline-none focus:outline-4 focus:outline-base-500/10 sm:text-sm bg-base-50 dark:bg-base-800"
+              />
+              <p class="mt-2 text-xs text-base-700">
+                Use at least 8 characters, 1 uppercase, 1 lowercase, 1 digit,
+                and 1 special character for your password.
+              </p>
+            </div>
+
+            <!-- Confirm Password Field -->
+            <div class="mt-4">
+              <label for="confirm-password" class="sr-only"
+                >Confirm Password</label
+              >
+              <input
+                type="password"
+                name="confirm-password"
+                id="confirm-password"
+                placeholder="Confirm your password"
+                autocomplete="new-password"
+                class="w-full flex-auto appearance-none rounded-md dark:text-white text-base-900 outline-inset border-transparent px-3 py-2 shadow-base-800/5 dark:placeholder:text-base-400 dark:place-holder-text-base-700 duration-300 h-9 focus:border-base-500 focus:outline-none focus:outline-4 focus:outline-base-500/10 sm:text-sm bg-base-50 dark:bg-base-800"
+              />
+            </div>
+          </div>
+
+          <!-- Submit Button -->
+
+          <div class="mt-2">
+            <Button size="sm" variant="default" type="submit" class="w-full">
+              Sign up
+            </Button>
+            <Text
+              tag="p"
+              variant="textXS"
+              class="mt-4 text-base-700 dark:text-base-400"
+            >
+              Already have an account?
+              <a
+                class="text-accent-400 hover:text-base-500"
+                href="/forms/signin">Sign in instead</a
+              >
+            </Text>
+          </div>
+        </form>
+      </div>
+      <Image
+        width={1000}
+        height={2000}
+        src={Avatar}
+        alt="#_"
+        class="w-full size-full mt-4 object-cover object-center lg:col-span-3 lg:order-first"
+      />
+    </div>
+  </Wrapper>
+</section>

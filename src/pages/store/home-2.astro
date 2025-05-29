@@ -1,0 +1,33 @@
+---
+// Fundations
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+// Components
+import StoreEntries2 from "@/components/store/StoreEntries2.astro";
+// Content
+import { getCollection } from "astro:content";
+const allProducts = await getCollection("store");
+---
+
+<BaseLayout>
+  <section>
+    <Wrapper variant="standard" class="py-24 lg:py-48">
+      <Text
+        tag="h1"
+        variant="displayXL"
+        data-aos="fade-up"
+        data-aos-duration="1000"
+        class="dark:text-white text-base-900 font-medium tracking-tighter"
+      >
+        store
+      </Text>
+
+      <div
+        class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-y-12 gap-2 mt-4"
+      >
+        {allProducts.map((post) => <StoreEntries2 post={post} />)}
+      </div>
+    </Wrapper>
+  </section>
+</BaseLayout>

@@ -1,0 +1,51 @@
+---
+// Assets
+import Logo from "@/components/assets/Logo.astro";
+import ThemeToggle from "@/components/assets/ThemeToggle.astro";
+// Fundations
+import Link from "@/components/fundations/elements/Link.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+---
+
+<div class="fixed bottom-8 left-0 right-0 flex justify-center z-50">
+  <div
+    class="bg-base-900 dark:bg-base-100 rounded-(--card-radius) p-(--card-padding) group [--card-padding:--spacing(1)]  [--card-radius:var(--radius-lg)] max-w-xl w-auto"
+  >
+    <div class="flex items-center justify-between p-0.5 gap-1">
+      <!-- Logo/Home button -->
+      <div
+      class="flex items-center justify-center size-14 bg-base-800 dark:bg-base-50 rounded-[calc(var(--card-radius)-var(--card-padding))]"
+    >
+      <a href="/" aria-label="Go to homepage">
+        <span class="sr-only">Go to homepage</span>
+        <Logo class="h-6 text-white dark:text-base-900" />
+      </a>
+    </div>
+    
+
+      
+    <a
+      href="/system/overview"
+      class="px-2 py-1 h-14 text-sm flex bg-base-800 dark:bg-base-50 items-center outline outline-base-900 dark:outline-base-100 dark:text-base-900 hover:bg-base-950  duration-300 rounded-[calc(var(--card-radius)-var(--card-padding))] text-white dark:hover:bg-base-300"
+      >Overview</a
+    >
+    <a
+    href="/work/home"
+      class="px-2 py-1 h-14 text-sm flex bg-base-800 dark:bg-base-50 items-center outline outline-base-900 dark:outline-base-100 dark:text-base-900 hover:bg-base-950  duration-300 rounded-[calc(var(--card-radius)-var(--card-padding))] text-white dark:hover:bg-base-300"
+      >Work</a
+    >
+    <ThemeToggle
+      class="px-2 py-1 size-14  flex bg-base-800 dark:bg-base-50 items-center outline outline-base-900 dark:outline-base-100 dark:text-base-900 hover:bg-base-950  duration-300 rounded-[calc(var(--card-radius)-var(--card-padding))] text-white dark:hover:bg-base-300"
+    />
+
+      <a
+      href="https://buy.polar.sh/polar_cl_1VZ_5CG_hCUa3jpsD91OT3rf333sjjrDLG2h6SbvGJg"
+        class="px-2 py-1 h-14 text-sm flex font-medium items-center bg-base-50 text-base-900 outline outline-base-900 dark:outline-base-100 hover:bg-base-950 duration-300 rounded-[calc(var(--card-radius)-var(--card-padding))] dark:bg-base-900 dark:text-white dark:hover:bg-base-800"
+      >
+        Buy Kotei
+      </a>
+    </div>
+  </div>
+</div>
+
+
